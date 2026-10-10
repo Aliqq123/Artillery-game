@@ -12,6 +12,7 @@ class GameGraphics:
         
         # draw the terrain
         # TODO: Draw a line from (-110,0) to (110,0)
+        Line(Point(-110,0),Point(110,0)).draw(self.win)
 
         self.draw_cannons = [self.drawCanon(0), self.drawCanon(1)]
         self.draw_scores  = [self.drawScore(0), self.drawScore(1)]
@@ -22,7 +23,19 @@ class GameGraphics:
         # TODO: draw a square with the size of the cannon with the color
         # and the position of the player with number playerNr.
         # After the drawing, return the rectangle object.
-        return None
+        player=self.game.getPlayers()[playerNr]
+        size=self.game.getCannonSize
+        x=player.getX()
+        x1=x-size/2
+        x2=x+x/2
+        y1=0
+        y2=size
+
+        cannon=Rectangle(Point(x1,y1),Point(x2,y2))
+        cannon.setFill(player.getColor())
+        cannon.draw(self.win)
+        
+        return cannon
 
     def drawScore(self,playerNr):
         # draw the score
