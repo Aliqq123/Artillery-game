@@ -34,7 +34,7 @@ class GameGraphics:
         cannon=Rectangle(Point(x1,y1),Point(x2,y2))
         cannon.setFill(player.getColor())
         cannon.draw(self.win)
-        
+
         return cannon
 
     def drawScore(self,playerNr):
@@ -43,7 +43,14 @@ class GameGraphics:
         # for player number playerNr. The text should be placed under
         # the corresponding cannon. After the drawing,
         # return the text object.
-        return None
+        player=self.game.getPlayers()[playerNr]
+        score=player.getScore()
+        x=player.getX()
+
+        score_text=text(Point(x,-5),"Score:"+str(score))
+        score_text.draw(self.win)
+
+        return score_text
 
     def fire(self, angle, vel):
         player = self.game.getCurrentPlayer()
@@ -54,10 +61,21 @@ class GameGraphics:
 
         # TODO: If the circle for the projectile for the current player
         # is not None, undraw it!
-
-        # draw the projectile (ball/circle)
+         # draw the projectile (ball/circle)
         # TODO: Create and draw a new circle with the coordinates of
         # the projectile.
+        playerNr=self.game.getCurrentPlayerNumber()
+        old_circle=self.draw_projs[playerNr]
+        if old_circle is not None:
+            old_circle.undraw()
+
+        circle=Circle(Point(proj.getX,proj.getY()),self.game.getBallSize())
+        circle.setFill(player.getColor())
+        circle.draw(self.win)
+
+        self.draw_projs[playerNr]=circle
+
+       
 
         while proj.isMoving():
             proj.update(1/50)
@@ -75,7 +93,8 @@ class GameGraphics:
     def updateScore(self,playerNr):
         # update the score on the screen
         # TODO: undraw the old text, create and draw a new text
-        pass
+        self.draw_scores[playerNr].undraw()
+        self.draw_scores[playerNr]=self.drawScore(playerNr)
 
     def play(self):
         while True:
