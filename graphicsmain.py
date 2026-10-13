@@ -118,10 +118,27 @@ class GameGraphics:
 
             if distance == 0.0:
                 player.increaseScore()
+                self.explode(self.game.getCurrentPlayerNumber())
                 self.updateScore(self.game.getCurrentPlayerNumber())
                 self.game.newRound()
 
             self.game.nextPlayer()
+    def explode(self):
+        opponentNr=1-playerNr
+        opponent=self.game.getPlayers()[opponent]
+
+        x=opponent.getX()
+        ballsize=self.game.getBallSize()
+        cannonsize=self.game.getCannonSize
+        player=self.game.getPlayers()[playerNr]
+
+        for radius in range(ballsize,2*cannonsize+1):
+         circle=Circle(Point(x,0),radius)
+         circle.setFill(player.getColor())
+         circle.draw(self.win)
+         update(50)
+         circle.undraw()
+
 
 
 class InputDialog:
