@@ -7,22 +7,24 @@ import random
 class Game:
     """ Create a game with a given size of cannon (length of sides) and projectiles (radius) """
     def __init__(self, cannonSize, ballSize):
+        self.cannonSize = cannonSize
+        self.ballSize = ballSize
         self.current_index = 0 
-        self.players = ['player_blue', 'player_red']
+        self.players = [Player(self, False, -90, 'blue'), Player(self, True, 90, 'red')]
         self.currentWind = (random.random()*20)-10 
 
 
     """ A list containing both players """
     def getPlayers(self):
-        return [] #TODO: this is just a dummy value
+        return self.players
 
     """ The height/width of the cannon """
     def getCannonSize(self):
-        return 0 #TODO: this is just a dummy value
+        return self.cannonSize
 
     """ The radius of cannon balls """
     def getBallSize(self):
-        return 0 #TODO: this is just a dummy value
+        return self.ballSize
 
     """ The current player, i.e. the player whose turn it is """
     def getCurrentPlayer(self):
@@ -54,8 +56,16 @@ class Game:
 
 """ Models a player """
 class Player:
-   #TODO: You need to create a constructor here. 
-   #HINT: It should probably take the Game that creates it as parameter and some additional properties that differ between players (like firing-direction, position and color)
+    def __init__(self, game, isReversed, xPos, color):
+        self.game = game
+        self.isReversed = isReversed
+        self.x = xPos
+        self.color = color
+        self.angle = 45
+        self.velocity = 40
+
+        self.score = 0
+
     
     """ Create and return a projectile starting at the centre of this players cannon. Replaces any previous projectile for this player. """
     def fire(self, angle, velocity):
@@ -75,19 +85,19 @@ class Player:
 
     """ The current score of this player """
     def getScore(self):
-        return 0 #TODO: this is just a dummy value
+        return self.score
 
     """ Increase the score of this player by 1."""
     def increaseScore(self):
-        pass #TODO: this should do something instead of nothing
+        self.score += 1
 
     """ Returns the color of this player (a string)"""
     def getColor(self):
-        return "DUMMY COLOR" #TODO: this is just a dummy value
+        return self.color
 
     """ The x-position of the centre of this players cannon """
     def getX(self):
-        return 0 #TODO: this is just a dummy value
+        return self.x
 
     """ The angle and velocity of the last projectile this player fired, initially (45, 40) """
     def getAim(self):
