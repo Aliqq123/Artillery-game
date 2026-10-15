@@ -27,7 +27,7 @@ class GameGraphics:
         size=self.game.getCannonSize()
         x=player.getX()
         x1=x-size/2
-        x2=x+x/2
+        x2=x+size/2
         y1=0
         y2=size
 
@@ -70,7 +70,7 @@ class GameGraphics:
             old_circle.undraw()
 
         circle=Circle(
-            Point(proj.getX,proj.getY()),
+            Point(proj.getX(),proj.getY()),
             self.game.getBallSize()
             )
         circle.setFill(player.getColor())
@@ -108,11 +108,12 @@ class GameGraphics:
             # InputDialog(self, angle, vel, wind) is a class in gamegraphics
             inp = InputDialog(oldAngle,oldVel,wind)
             # interact(self) is a function inside InputDialog. It runs a loop until the user presses either the quit or fire button
-            if inp.interact() == "Fire!": 
-                angle, vel = inp.getValues()
-                inp.close()
-            elif inp.interact() == "Quit":
-                exit()
+            choice = inp.interact()
+            if choice == "Fire!":
+              angle, vel = inp.getValues()
+              inp.close()
+            else:
+              exit()
             
             player = self.game.getCurrentPlayer()
             other = self.game.getOtherPlayer()
