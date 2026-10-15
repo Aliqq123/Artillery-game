@@ -26,8 +26,8 @@ class GameGraphics:
         player=self.game.getPlayers()[playerNr]
         size=self.game.getCannonSize
         x=player.getX()
-        x1=x-size/2
-        x2=x+x/2
+        x1=x-size//2
+        x2=x+x//2
         y1=0
         y2=size
 
@@ -215,4 +215,4 @@ class Button:
         self.active = 0
 
 
-GameGraphics(Game(11,3)).play()
+
