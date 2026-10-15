@@ -24,10 +24,10 @@ class GameGraphics:
         # and the position of the player with number playerNr.
         # After the drawing, return the rectangle object.
         player=self.game.getPlayers()[playerNr]
-        size=self.game.getCannonSize
+        size=self.game.getCannonSize()
         x=player.getX()
-        x1=x-size//2
-        x2=x+x//2
+        x1=x-size/2
+        x2=x+x/2
         y1=0
         y2=size
 
@@ -47,7 +47,7 @@ class GameGraphics:
         score=player.getScore()
         x=player.getX()
 
-        score_text=text(Point(x,-5),"Score:"+str(score))
+        score_text=Text(Point(x,-5),"Score:"+str(score))
         score_text.draw(self.win)
 
         return score_text
@@ -69,7 +69,10 @@ class GameGraphics:
         if old_circle is not None:
             old_circle.undraw()
 
-        circle=Circle(Point(proj.getX,proj.getY()),self.game.getBallSize())
+        circle=Circle(
+            Point(proj.getX,proj.getY()),
+            self.game.getBallSize()
+            )
         circle.setFill(player.getColor())
         circle.draw(self.win)
 
@@ -123,13 +126,13 @@ class GameGraphics:
                 self.game.newRound()
 
             self.game.nextPlayer()
-    def explode(self):
+    def explode(self,playerNr):
         opponentNr=1-playerNr
-        opponent=self.game.getPlayers()[opponent]
+        opponent=self.game.getPlayers()[opponentNr]
 
         x=opponent.getX()
         ballsize=self.game.getBallSize()
-        cannonsize=self.game.getCannonSize
+        cannonsize=self.game.getCannonSize()
         player=self.game.getPlayers()[playerNr]
 
         for radius in range(ballsize,2*cannonsize+1):
