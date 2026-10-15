@@ -217,5 +217,5 @@ class Button:
         self.rect.setWidth(1)
         self.active = 0
 
-
+GameGraphics(Game(11,3)).play()
 
